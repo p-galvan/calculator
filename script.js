@@ -16,10 +16,33 @@ function divide(a, b) {
     return a / b;
 }
 
-// Declare all three variables to hold parameters of calculator functions
+function operate(a, b, operator) {
+
+    // Call appropriate function
+    switch(operator) {
+        case "+":
+            return add(a, b);
+            break;
+        case "-":
+            return subtract(a, b);
+            break;
+        case "*":
+            return multiply(a, b);
+            break;
+        case "/":
+            return divide(a, b);
+            break; 
+        default:
+            return console.log("error");    
+    }
+
+}
+
+// Parameters of calculator functions
 let numberOne = 0;
 let numberTwo = 0;
 let calcOperator = "";
+
 
 
 // A calculator operation will consist of a number, an operator, and another number. For example, 3 + 5. 
