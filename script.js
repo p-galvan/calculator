@@ -17,26 +17,29 @@ function divide(a, b) {
 }
 
 function operate(a, b, operator) {
-
+    let result = null;
     // Call appropriate function
     switch(operator) {
         case "+":
-            return add(a, b);
+            result = add(a, b);
             break;
         case "-":
-            return subtract(a, b);
+            result = subtract(a, b);
             break;
         case "*":
-            return multiply(a, b);
+            result = multiply(a, b);
             break;
         case "/":
-            return divide(a, b);
+            result = divide(a, b);
             break; 
         default:
             return console.log("error");    
     }
 
+    return console.log(result);
 }
+
+operate(11, 2, "*");
 
 // Parameters of calculator functions
 let numberOne = 0;
