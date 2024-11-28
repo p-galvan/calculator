@@ -1,5 +1,3 @@
-// Script for calculator
-
 function add(a, b) {
     return a + b;
 }
@@ -49,6 +47,5 @@ let numberTwo = 0;
 let calcOperator = "";
 
 
-// A calculator operation will consist of a number, an operator, and another number. For example, 3 + 5. 
-// Create three variables, one for each part of the operation. You’ll use these variables to update your display later.
+
 
