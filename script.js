@@ -35,11 +35,13 @@ function operate(a, b, operator) {
         default:
             return console.log("error");    
     }
+    // Round result
+    result = Math.round(result * 100) / 100;
 
     return console.log(result);
 }
 
-operate(11, 2, "*");
+operate(10, 3, "/");
 
 // Parameters of calculator functions
 let numberOne = 0;
