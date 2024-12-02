@@ -71,7 +71,7 @@ function punchOperators(event) {
             break;
         case "btn-ac":
             // Call clear
-            console.log(event.target.id);
+            clear();
             break;
         default:
             console.log(event.target.id);
