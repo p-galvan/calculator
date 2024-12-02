@@ -14,6 +14,7 @@ function divide(a, b) {
     return a / b;
 }
 
+// Calls apporporiate math function when called and returns result
 function operate(a, b, operator) {
     let result = null;
     // Call appropriate function
@@ -39,12 +40,39 @@ function operate(a, b, operator) {
     return console.log(result);
 }
 
+// TEST
 operate(10, 3, "/");
 
-// Parameters of calculator functions
-let numberOne = 0;
-let numberTwo = 0;
-let calcOperator = "";
+window.onload=function main() { 
+    // Parameters of calculator functions
+    let NUMBER_ONE = [];
+    let NUMBER_TWO = 0;
+    let CALC_OPERATOR = "";
+
+    // Functions to populate the display when clicking the digit buttons. Store the content of display...
+    // ... in a variable for use in next step
+
+        // Push each digit to an array as the user enters as digit
+        let digits = document.querySelector(".digits");
+
+        digits.addEventListener("click", (event) => {
+            // Store into array
+            NUMBER_ONE = NUMBER_ONE.push(event.target.value);
+            console.log(NUMBER_ONE);
+            // Change display    
+
+        });
+
+        // When operator btn is pressed, join array -> string -> number for first string???
+
+        // when OPERATE btn is pressed, same as above for second string, then call 
+}
+
+
+
+// Store the first and second numbers input by the user and then operate on them when the user presses = btn
+// ... You should already have the code that can populate the display, so update the display with result once operate is called
+
 
 
 
