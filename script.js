@@ -11,6 +11,10 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+    if (b === 0) {
+        return "NOT A NUMBER!!";
+    }
+    
     return a / b;
 }
 
@@ -50,45 +54,68 @@ function punchNumber(event) {
     let number = Number(TEMP_ARRAY.join(""));
     
     updateScreen(number);
+    
     return number;
 }
 
+function punchOperators(event) {
+
+    switch(event.target.id) {
+        case "btn-operate":
+            // CALL Operate
+            console.log(event.target.id);
+            break;
+        case "btn-neg":
+            // multiply number times -1
+            console.log(event.target.id);
+            break;
+        case "btn-ac":
+            // Call clear
+            console.log(event.target.id);
+            break;
+        default:
+            console.log(event.target.id);
+    }
+
+}
+
+// Resets all global variables and resets screen
+function clear() {
+    TEMP_ARRAY = [];
+    FIRST_NUM = null;
+    SECOND_NUM = null;
+    CALC_OPERATOR = null;
+    
+    let screen = document.querySelector("#screen");    
+    screen.textContent = 0;
+    
+}
+
 // Updates calculator screen as user types numbers
-function updateScreen(number) {
-    let screen = document.querySelector("#screen");
+function updateScreen(number, SCREEN) {
+    let screen = document.querySelector("#screen");    
     screen.textContent = number;
     
     return;
 }
 
-let FIRST_NUM = null;
 let TEMP_ARRAY = [];
+let FIRST_NUM = null;
 let SECOND_NUM = null;
-let CALC_OPERATOR = "";
+let CALC_OPERATOR = null;
 
 window.onload=function main() { 
-    // Parameters of calculator functions
 
-    // Functions to populate the display when clicking the digit buttons. Store the content of display...
-    // ... in a variable for use in next step
+    // Push each digit to an array as the user enters as digit
+    let digits = document.querySelector(".digits");
+    let operators = document.querySelector(".operators");
+    
+    // Calls function to store numbers and update screen
+    digits.addEventListener("click", punchNumber, false);
 
-        // Push each digit to an array as the user enters as digit
-        let digits = document.querySelector(".digits");
-        let screen = document.querySelector("#screen");
-        let operators = document.querySelector(".operators");
-
-        // Calls function to store numbers and update screen
-        digits.addEventListener("click", punchNumber, false);
-
-        // operators.addEventListener("click", (event) => {
-            
-
-
-
-        // });
-        // When operator btn is pressed, join array -> string -> number for first string???
-
-        // when OPERATE btn is pressed, same as above for second string, then call 
+    operators.addEventListener("click", punchOperators, false);
+        
+    
 }
 
 
