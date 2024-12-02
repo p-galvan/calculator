@@ -45,8 +45,9 @@ operate(10, 3, "/");
 
 window.onload=function main() { 
     // Parameters of calculator functions
-    let NUMBER_ONE = [];
-    let NUMBER_TWO = 0;
+    let FIRST_NUM = null;
+    let TEMP_ARRAY = [];
+    let SECOND_NUM = null;
     let CALC_OPERATOR = "";
 
     // Functions to populate the display when clicking the digit buttons. Store the content of display...
@@ -54,14 +55,18 @@ window.onload=function main() {
 
         // Push each digit to an array as the user enters as digit
         let digits = document.querySelector(".digits");
+        let screen = document.querySelector("#screen");
 
         digits.addEventListener("click", (event) => {
             // Store into array
-            NUMBER_ONE = NUMBER_ONE.push(event.target.value);
-            console.log(NUMBER_ONE);
-            // Change display    
-
+            // TODO: FIX multiple decimal points glitch
+            TEMP_ARRAY.push(event.target.value);
+            FIRST_NUM = Number(TEMP_ARRAY.join(""));
+            
+            // Change display
+            screen.textContent = FIRST_NUM;
         });
+
 
         // When operator btn is pressed, join array -> string -> number for first string???
 
