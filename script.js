@@ -43,12 +43,31 @@ function operate(a, b, operator) {
 // TEST
 operate(10, 3, "/");
 
+// Stores numbers on temp array screen as user types + returns number
+function punchNumber(event) {
+    // TODO: FIX multiple decimal points glitch
+    TEMP_ARRAY.push(event.target.value);
+    let number = Number(TEMP_ARRAY.join(""));
+    
+    updateScreen(number);
+    return number;
+}
+
+// Updates calculator screen as user types numbers
+function updateScreen(number) {
+    let screen = document.querySelector("#screen");
+    screen.textContent = number;
+    
+    return;
+}
+
+let FIRST_NUM = null;
+let TEMP_ARRAY = [];
+let SECOND_NUM = null;
+let CALC_OPERATOR = "";
+
 window.onload=function main() { 
     // Parameters of calculator functions
-    let FIRST_NUM = null;
-    let TEMP_ARRAY = [];
-    let SECOND_NUM = null;
-    let CALC_OPERATOR = "";
 
     // Functions to populate the display when clicking the digit buttons. Store the content of display...
     // ... in a variable for use in next step
@@ -56,28 +75,25 @@ window.onload=function main() {
         // Push each digit to an array as the user enters as digit
         let digits = document.querySelector(".digits");
         let screen = document.querySelector("#screen");
+        let operators = document.querySelector(".operators");
 
-        digits.addEventListener("click", (event) => {
-            // Store into array
-            // TODO: FIX multiple decimal points glitch
-            TEMP_ARRAY.push(event.target.value);
-            FIRST_NUM = Number(TEMP_ARRAY.join(""));
+        // Calls function to store numbers and update screen
+        digits.addEventListener("click", punchNumber, false);
+
+        // operators.addEventListener("click", (event) => {
             
-            // Change display
-            screen.textContent = FIRST_NUM;
-        });
 
 
+
+        // });
         // When operator btn is pressed, join array -> string -> number for first string???
 
         // when OPERATE btn is pressed, same as above for second string, then call 
 }
 
 
-
 // Store the first and second numbers input by the user and then operate on them when the user presses = btn
 // ... You should already have the code that can populate the display, so update the display with result once operate is called
-
 
 
 
