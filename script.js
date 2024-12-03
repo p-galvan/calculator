@@ -80,9 +80,7 @@ function punchOperators(event) {
             break;
         // Operate and generate result    
         case "btn-operate":
-            console.log("operating");
             SECOND_NUM = Number(TEMP_ARRAY.join(""));
-            console.log("second num: " + SECOND_NUM);
             calculate(CALC_OPERATOR);
             break;
         // Operator pressed  
