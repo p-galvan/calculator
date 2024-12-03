@@ -1,10 +1,10 @@
 // Store current number, first and second numbers, operator and "state" of operator (pressed/raised)
-
 let TEMP_ARRAY = [];
 let FIRST_NUM = null;
 let SECOND_NUM = null;
 let CALC_OPERATOR = null;
 let OPERATOR_PRESSED = false;
+const DECIMAL_BTN = document.querySelector("#btn-dec");
 
 // Basic math functions
 function add(a, b) {
@@ -21,13 +21,12 @@ function divide(a, b) {
         updateScreen("Not a number!");
         return;
     }
-    
     return a / b;
 }
 
 // Calls apporporiate math function when called and returns result
 function operate(a, b, operator) {
-    let result = null;
+    let result;
 
     // Call appropriate function
     switch(operator) {
@@ -54,9 +53,13 @@ function operate(a, b, operator) {
 
 // Stores numbers on temp array screen as user types + returns number
 function punchNumber(event) {
-    // TODO: FIX multiple decimal points glitch
+    // Clear screen if first number already saved
     if (!TEMP_ARRAY.length) {
         clearScreen();
+    }
+    // Disable "." button after it's pressed
+    if (event.target.value === ".") {
+        DECIMAL_BTN.disabled = true;
     }
 
     TEMP_ARRAY.push(event.target.value);
@@ -73,7 +76,6 @@ function punchOperators(event) {
             break;
         // Clear Calculator    
         case "btn-ac":
-            // Call clear
             clearCalc();
             break;
         // Operate and generate result    
@@ -88,22 +90,24 @@ function punchOperators(event) {
         case "btn-subt":
         case "btn-mult":
         case "btn-div":
+            // FIRST_NUM doesn't exist --> save and wait for SECOND_NUM
             if (!FIRST_NUM) {
-                // Save first_num, clear temp array, save calc operator
                 FIRST_NUM = Number(TEMP_ARRAY.join(""));
                 CALC_OPERATOR = event.target.value;
-                TEMP_ARRAY = [];
+                DECIMAL_BTN.disabled = false;
+                clearArray();
                 
                 break;
             }
+            // SAVE SECOND_NUM and calculate result with current operator
             else if (FIRST_NUM) {
-                console.log("case2");
-                 SECOND_NUM = Number(TEMP_ARRAY.join(""));
-                 calculate(CALC_OPERATOR);
-                 CALC_OPERATOR = event.target.value;
-                 //console.log("second num: "+ SECOND_NUM);
+                SECOND_NUM = Number(TEMP_ARRAY.join(""));
+                calculate(CALC_OPERATOR);
                  
-                 break;
+                // Save the new operator for use in next operation
+                CALC_OPERATOR = event.target.value;
+                 
+                break;
             }
     }
 }
@@ -122,7 +126,8 @@ function calculate(CALC_OPERATOR) {
         FIRST_NUM = result;
         SECOND_NUM = null;
         CALC_OPERATOR = null;
-        TEMP_ARRAY = [];
+        DECIMAL_BTN.disabled = false;
+        clearArray();
 
         return;
     }
@@ -130,11 +135,10 @@ function calculate(CALC_OPERATOR) {
 
 // Resets all global variables and resets screen
 function clearCalc() {
-    TEMP_ARRAY = [];
+    clearArray();
     FIRST_NUM = null;
     SECOND_NUM = null;
     CALC_OPERATOR = null;
-    OPERATOR_PRESSED = false;
     
     let screen = document.querySelector("#screen");    
     screen.textContent = 0; 
@@ -146,12 +150,16 @@ function clearScreen() {
     screen.textContent = "" ;
 }
 
+// Clears array from previous data
+function clearArray() {
+    TEMP_ARRAY = [];
+}
+
+
 // Updates calculator screen as user types numbers
 function updateScreen (number) {
     let screen = document.querySelector("#screen");    
     screen.textContent = number;
-
-    return;
 }
 
 window.onload=function main() { 
