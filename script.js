@@ -13,41 +13,27 @@ window.onload=function main() {
     operators.addEventListener("click", punchOperators, false);
 }
 
-// Basic math functions
-function add(a, b) {
-    return a + b;
-}
-function subtract(a, b){
-    return a - b;
-}
-function multiply(a, b) {
-    return a * b;
-}
-function divide(a, b) {
-    if (b === 0) {
-        return console.log("Not a number!");
-    }
-    else {
-        return a / b;
-    }
-}
-
-// Calls apprporiate math function when called and returns result
+// Performs apprporiate math function when called and returns result
 function operate(a, b, operator) {
     let result;
     // Call appropriate function
     switch(operator) {
         case "+":
-            result = add(a, b);
+            result = a + b;
             break;
         case "-":
-            result = subtract(a, b);
+            result = a - b;
             break;
         case "*":
-            result = multiply(a, b);
+            result = a * b;
             break;
         case "/":
-            result = divide(a, b);
+            if (b === 0) {
+                console.log("not a number!!");
+            }
+            else{
+                result = a / b;
+            }
             break; 
     }
     return roundNumber(result);
