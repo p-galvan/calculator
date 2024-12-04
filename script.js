@@ -79,6 +79,12 @@ function punchOperators(event) {
             break;
         // Operate and generate result    
         case "btn-operate":
+            // If user presses "=" w/o entering operator and/or second number
+            if (!CALC_OPERATOR || (TEMP_ARRAY.length === 0)) {
+                console.log("cheecky!");
+                return;
+            }
+
             SECOND_NUM = parseFloat(TEMP_ARRAY.join(""));
             calculate();
             break;
@@ -111,12 +117,6 @@ function punchOperators(event) {
 
 // Calls operate, updates screen, resets second_num and calc_operator
 function calculate() {    
-    if (!FIRST_NUM) {
-        FIRST_NUM = TEMP_ARRAY;
-        updateScreen(FIRST_NUM);    
-        return;
-    }
-    
     if(SECOND_NUM === 0) {
         SECOND_NUM = 0;
     }
