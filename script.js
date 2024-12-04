@@ -51,9 +51,9 @@ function operate(a, b, operator) {
 
 // Stores numbers on temp array screen as user types + returns number
 function punchNumber(event) {
-    // Clear screen if first number already saved
-    if (!TEMP_ARRAY.length) {
-        //clearScreen();
+    // Prevent non-buttons within digits from firing off action
+    if (event.target.className != "btn") {
+        return;
     }
     // Disable "." button after it's pressed
     if (event.target.value === ".") {
