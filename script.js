@@ -57,7 +57,7 @@ function punchNumber(event) {
     }
     // Disable "." button after it's pressed
     if (event.target.value === ".") {
-        DECIMAL_BTN.disabled = true;
+        toggleDecimal();
     }
 
     TEMP_ARRAY.push(event.target.value);
@@ -97,7 +97,7 @@ function punchOperators(event) {
             if (!FIRST_NUM) {
                 FIRST_NUM = parseFloat(TEMP_ARRAY.join(""));
                 CALC_OPERATOR = event.target.value;
-                DECIMAL_BTN.disabled = false;
+                toggleDecimal();
                 clearArray();
                 
                 break;
@@ -159,13 +159,29 @@ function clearArray() {
     TEMP_ARRAY = [];
 }
 
+// Toggle decimal button on/off
+function toggleDecimal() {
+    if (DECIMAL_BTN.disabled === true) {
+        DECIMAL_BTN.disabled = false;
+    }
+    else if (DECIMAL_BTN.disabled === false) {
+        DECIMAL_BTN.disabled = true;
+    }
+}
+
 // Multiplies current number times -1 and assigns to FIRST_NUM/SECOND_NUM
 function toNegative() {
     // Save FIRST_NUM, multiply by -1 and update screen
-    let number = (parseFloat(TEMP_ARRAY.join("")) *  -1);
-    updateScreen(number);
+    let number = parseFloat(TEMP_ARRAY.join(""));
+    number *= -1;
 
-    return !FIRST_NUM ? FIRST_NUM = number : SECOND_NUM = number;
+    updateScreen(number);
+    console.log(number);
+    console.log(typeof(number));
+
+    TEMP_ARRAY.push(number);
+
+    //return !FIRST_NUM ? FIRST_NUM = number : SECOND_NUM = number;
 }
 
 // Updates calculator screen as user types numbers
