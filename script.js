@@ -3,7 +3,6 @@ let TEMP_ARRAY = [];
 let FIRST_NUM = null;
 let SECOND_NUM = null;
 let CALC_OPERATOR = null;
-let OPERATOR_PRESSED = false;
 const DECIMAL_BTN = document.querySelector("#btn-dec");
 
 // Basic math functions
@@ -18,10 +17,11 @@ function multiply(a, b) {
 }
 function divide(a, b) {
     if (b === 0) {
-        updateScreen("Not a number!");
-        return;
+        return console.log("Not a number!");
     }
-    return a / b;
+    else {
+        return a / b;
+    }
 }
 
 // Calls apporporiate math function when called and returns result
@@ -42,8 +42,6 @@ function operate(a, b, operator) {
         case "/":
             result = divide(a, b);
             break; 
-        default:
-            return console.log("error");    
     }
     // Round result
     result = Math.round(result * 100) / 100;
@@ -55,7 +53,7 @@ function operate(a, b, operator) {
 function punchNumber(event) {
     // Clear screen if first number already saved
     if (!TEMP_ARRAY.length) {
-        clearScreen();
+        //clearScreen();
     }
     // Disable "." button after it's pressed
     if (event.target.value === ".") {
@@ -63,8 +61,9 @@ function punchNumber(event) {
     }
 
     TEMP_ARRAY.push(event.target.value);
-    let number = Number(TEMP_ARRAY.join(""));
-    
+    let number = parseFloat(TEMP_ARRAY.join(""));
+    console.log(TEMP_ARRAY);
+
     updateScreen(number);    
 }
 
@@ -72,7 +71,7 @@ function punchOperators(event) {
     switch(event.target.id) {
         // Multiply current number * -1
         case "btn-neg":
-            console.log(event.target.id);
+            toNegative();
             break;
         // Clear Calculator    
         case "btn-ac":
@@ -80,8 +79,8 @@ function punchOperators(event) {
             break;
         // Operate and generate result    
         case "btn-operate":
-            SECOND_NUM = Number(TEMP_ARRAY.join(""));
-            calculate(CALC_OPERATOR);
+            SECOND_NUM = parseFloat(TEMP_ARRAY.join(""));
+            calculate();
             break;
         // Operator pressed  
         case "btn-add":
@@ -90,7 +89,7 @@ function punchOperators(event) {
         case "btn-div":
             // FIRST_NUM doesn't exist --> save and wait for SECOND_NUM
             if (!FIRST_NUM) {
-                FIRST_NUM = Number(TEMP_ARRAY.join(""));
+                FIRST_NUM = parseFloat(TEMP_ARRAY.join(""));
                 CALC_OPERATOR = event.target.value;
                 DECIMAL_BTN.disabled = false;
                 clearArray();
@@ -99,8 +98,8 @@ function punchOperators(event) {
             }
             // SAVE SECOND_NUM and calculate result with current operator
             else if (FIRST_NUM) {
-                SECOND_NUM = Number(TEMP_ARRAY.join(""));
-                calculate(CALC_OPERATOR);
+                SECOND_NUM = parseFloat(TEMP_ARRAY.join(""));
+                calculate();
                  
                 // Save the new operator for use in next operation
                 CALC_OPERATOR = event.target.value;
@@ -111,24 +110,31 @@ function punchOperators(event) {
 }
 
 // Calls operate, updates screen, resets second_num and calc_operator
-function calculate(CALC_OPERATOR) {
-    if(!SECOND_NUM) {
+function calculate() {    
+    if (!FIRST_NUM) {
+        FIRST_NUM = TEMP_ARRAY;
+        updateScreen(FIRST_NUM);    
         return;
     }
-    else {
-        // Calculate result        
-        result = operate(FIRST_NUM, SECOND_NUM, CALC_OPERATOR);
-
-        // Update screen and change state of operator pressed
-        updateScreen(result);
-        FIRST_NUM = result;
-        SECOND_NUM = null;
-        CALC_OPERATOR = null;
-        DECIMAL_BTN.disabled = false;
-        clearArray();
-
-        return;
+    
+    if(SECOND_NUM === 0) {
+        SECOND_NUM = 0;
     }
+    if(SECOND_NUM === null) {
+        console.log("nullll!");
+    }
+    // Calculate result 
+    console.log(TEMP_ARRAY);
+    console.log(SECOND_NUM);       
+    result = operate(FIRST_NUM, SECOND_NUM, CALC_OPERATOR);
+
+    // Update screen and change state of operator pressed
+    updateScreen(result);
+    FIRST_NUM = result;
+    SECOND_NUM = null;
+    CALC_OPERATOR = null;
+    DECIMAL_BTN.disabled = false;
+    clearArray();
 }
 
 // Resets all global variables and resets screen
@@ -153,6 +159,14 @@ function clearArray() {
     TEMP_ARRAY = [];
 }
 
+// Multiplies current number times -1 and assigns to FIRST_NUM/SECOND_NUM
+function toNegative() {
+    // Save FIRST_NUM, multiply by -1 and update screen
+    let number = (parseFloat(TEMP_ARRAY.join("")) *  -1);
+    updateScreen(number);
+
+    return !FIRST_NUM ? FIRST_NUM = number : SECOND_NUM = number;
+}
 
 // Updates calculator screen as user types numbers
 function updateScreen (number) {
