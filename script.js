@@ -67,6 +67,7 @@ function punchNumber(event) {
     updateScreen(number);    
 }
 
+// Determines functionality depending on function/operator clicked by user
 function punchOperators(event) {
     switch(event.target.id) {
         // Multiply current number * -1
