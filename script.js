@@ -1,5 +1,5 @@
 // Store current number, first and second numbers, operator and "state" of operator (pressed/raised)
-let TEMP_ARRAY = [];
+let TEMP_ARRAY = [0];
 let FIRST_NUM = null;
 let SECOND_NUM = null;
 let CALC_OPERATOR = null;
@@ -43,10 +43,13 @@ function operate(a, b, operator) {
             result = divide(a, b);
             break; 
     }
-    // Round result
-    result = Math.round(result * 100) / 100;
+    
+    return roundNumber(result);
+}
 
-    return result;
+// Rounds number to two decimal places
+function roundNumber(number) {
+    return Math.round(number * 100) / 100;
 }
 
 // Stores numbers on temp array screen as user types + returns number
@@ -117,24 +120,24 @@ function punchOperators(event) {
 
 // Calls operate, updates screen, resets second_num and calc_operator
 function calculate() {    
+    // Validate second number
+    if(SECOND_NUM === null) {
+        return;
+    }
+    
     if(SECOND_NUM === 0) {
         SECOND_NUM = 0;
     }
-    if(SECOND_NUM === null) {
-        console.log("nullll!");
-    }
-    // Calculate result 
-    console.log(TEMP_ARRAY);
-    console.log(SECOND_NUM);       
+    // Calculate result  
     result = operate(FIRST_NUM, SECOND_NUM, CALC_OPERATOR);
 
     // Update screen and change state of operator pressed
+    clearArray();
     updateScreen(result);
     FIRST_NUM = result;
     SECOND_NUM = null;
     CALC_OPERATOR = null;
     DECIMAL_BTN.disabled = false;
-    clearArray();
 }
 
 // Resets all global variables and resets screen
@@ -156,7 +159,7 @@ function clearScreen() {
 
 // Clears array from previous data
 function clearArray() {
-    TEMP_ARRAY = [];
+    TEMP_ARRAY = [0];
 }
 
 // Toggle decimal button on/off

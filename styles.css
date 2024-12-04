@@ -26,16 +26,19 @@
 .screen-container {
     display: flex;
     border: solid;
+    flex: 1;
 }
 
 .buttons {
     display: flex;
     border: solid;
+    flex: 1;
 }
 
 .digits {
     display: flex;
     flex-direction: column;
+    flex: 1;
 }
 
 .operators {
