@@ -20,29 +20,51 @@
     display: flex;
     flex-direction: column;
     border: solid;
-    align-items: center;
+    height: 400px;
+    width: 300px;
+    align-items: stretch;
 }
 
 .screen-container {
     display: flex;
+    flex-direction: column;
     border: solid;
-    flex: 1;
+    flex-basis: 80px;
+
 }
 
 .buttons {
     display: flex;
     border: solid;
-    flex: 1;
+    flex-grow: 1;
 }
 
 .digits {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    align-items: stretch;
+    border: dodgerblue;
+    border: solid;
+    flex-basis: 200px;
 }
 
 .operators {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
 }
 
+#screen {
+    margin: auto;
+
+}
+
+.btn-row {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn {
+    flex: 1;
+}
