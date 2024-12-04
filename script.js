@@ -5,6 +5,14 @@ let SECOND_NUM = null;
 let CALC_OPERATOR = null;
 const DECIMAL_BTN = document.querySelector("#btn-dec");
 
+window.onload=function main() { 
+    let digits = document.querySelector(".digits");
+    let operators = document.querySelector(".operators");
+    
+    digits.addEventListener("click", punchNumber, false);
+    operators.addEventListener("click", punchOperators, false);
+}
+
 // Basic math functions
 function add(a, b) {
     return a + b;
@@ -171,12 +179,4 @@ function toNegative() {
 function updateScreen (number) {
     let screen = document.querySelector("#screen");    
     screen.textContent = number;
-}
-
-window.onload=function main() { 
-    let digits = document.querySelector(".digits");
-    let operators = document.querySelector(".operators");
-    
-    digits.addEventListener("click", punchNumber, false);
-    operators.addEventListener("click", punchOperators, false);
 }
