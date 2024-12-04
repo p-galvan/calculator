@@ -94,7 +94,7 @@ function punchOperators(event) {
             if (!FIRST_NUM) {
                 FIRST_NUM = parseFloat(TEMP_ARRAY.join(""));
                 CALC_OPERATOR = event.target.value;
-                toggleDecimal();
+                toggleDecimal(); // toggle decimal back on
                 clearArray();      
                 break;
             }
@@ -116,7 +116,7 @@ function validateOperator() {
 
 // Calls operate, updates screen, resets second_num and calc_operator
 function calculate() {    
-    // Validate second number
+    // Validate if second number was entered
     if(SECOND_NUM === null) {
         return;
     } 
@@ -126,7 +126,7 @@ function calculate() {
     // Calculate result  
     result = operate(FIRST_NUM, SECOND_NUM, CALC_OPERATOR);
 
-    // Update screen and change state of operator pressed
+    // Clear temp array, update screen, reset second_num, operator and enable decimal button
     clearArray();
     updateScreen(result);
     FIRST_NUM = result;
@@ -135,15 +135,13 @@ function calculate() {
     DECIMAL_BTN.disabled = false;
 }
 
-// Resets all global variables and resets screen
+// Resets all global variables and screen
 function clearCalc() {
     clearArray();
     FIRST_NUM = null;
     SECOND_NUM = null;
     CALC_OPERATOR = null;
-    
-    let screen = document.querySelector("#screen");    
-    screen.textContent = 0; 
+    updateScreen(0); 
 }
 
 // Clears array from previous data
